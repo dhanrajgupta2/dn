@@ -1,0 +1,93 @@
+# EXP 1 : Linear regression by using Deep Neural network: 
+# Implement Boston housing price.prediction problem by Linear regression using Deep Neural network. 
+# Use Boston House price prediction dataset. 
+
+# solution 
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Input
+
+file_path = 'C:\\Users\\ASUS\\Downloads\\boston_house_prices.csv' 
+df = pd.read_csv(file_path)
+df.head()
+
+# Split features and target
+X = df.drop("PRICE", axis=1)
+y = df["PRICE"]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+
+scaler = StandardScaler()
+X_train= scaler.fit_transform(X_train)
+X_test= scaler.transform(X_test)
+
+# Build DNN-based Linear Regression model
+model = Sequential()
+model.add(Input(shape=(X_train.shape[1],)))
+model.add(Dense(64, activation='relu'))
+model.add(Dense(32, activation='relu'))
+model.add(Dense(1))  # Linear regression neuron
+
+model.compile(
+    optimizer='sgd',
+    loss='mse'
+)
+
+history = model.fit(
+    X_train,
+    y_train,
+    epochs=100,
+    batch_size=16,
+    validation_split=0.1,
+    verbose=1
+)
+
+test_loss = model.evaluate(X_test, y_test)
+print("Test Mean Squared Error:", test_loss)
+
+predictions = model.predict(X_test)
+
+plt.figure(figsize=(10, 5))
+plt.scatter(y_test, predictions, alpha=0.7) # Changed y_pred to predictions
+line_range = [y_test.min(), y_test.max()]
+plt.plot(line_range, line_range, color='red', linestyle='--', linewidth=2, label='Perfect Prediction')
+plt.xlabel("Actual Prices")
+plt.ylabel("Predicted Prices")
+plt.title("Actual vs Predicted Prices")
+plt.legend()
+plt.show()
+
+plt.figure(figsize=(10, 5))
+plt.plot(history.history['loss'], label='Train Loss')
+plt.plot(history.history['val_loss'], label='Validation Loss')
+plt.title('Model Loss (MSE)')
+plt.ylabel('Loss')
+plt.xlabel('Epoch')
+plt.legend()
+plt.show()
+
+model.summary()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
