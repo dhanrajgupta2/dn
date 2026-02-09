@@ -48,9 +48,6 @@ history = model.fit(
     verbose=1
 )
 
-test_loss = model.evaluate(X_test, y_test)
-print("Test Mean Squared Error:", test_loss)
-
 predictions = model.predict(X_test)
 
 # optional 
