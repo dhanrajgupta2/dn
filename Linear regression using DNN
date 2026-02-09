@@ -30,8 +30,8 @@ X_test= scaler.transform(X_test)
 # Build DNN-based Linear Regression model
 model = Sequential()
 model.add(Input(shape=(X_train.shape[1],)))
-model.add(Dense(64, activation='relu'))
-model.add(Dense(32, activation='relu'))
+model.add(Dense(64, activation='relu')) # (learns complex features)
+model.add(Dense(32, activation='relu')) # (combines features)
 model.add(Dense(1))  # Linear regression neuron
 
 model.compile(
