@@ -41,7 +41,7 @@ model.compile(
 history = model.fit(
     X_train,
     y_train,
-    epochs=10,
+    epochs=10,  # without this cannt use val_lose
     validation_split=0.1
 )
 
