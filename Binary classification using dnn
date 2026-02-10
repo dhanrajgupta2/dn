@@ -42,6 +42,8 @@ model.fit(
     validation_split=0.1
 )
 
+# use this or the other one optional below this one 
+
 # Test
 model.evaluate(X_test, y_test)
 
