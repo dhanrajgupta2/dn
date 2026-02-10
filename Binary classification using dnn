@@ -47,7 +47,15 @@ model.evaluate(X_test, y_test)
 
 
 
+# optional else the loss and positive is happening implicit 
 
+pred = model.predict(X_test[:5])
+
+for p in pred:
+    if p >= 0.5:
+        print("Positive review")
+    else:
+        print("Negative review")
 
 
 
