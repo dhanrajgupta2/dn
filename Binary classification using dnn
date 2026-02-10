@@ -39,7 +39,7 @@ model.fit(
     X_train,
     y_train,
     epochs=10,
-    validation_split=0.1
+    validation_split=0.1  # optional safe to remove 
 )
 
 # use this or the other one optional below this one 
