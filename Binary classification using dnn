@@ -1,1 +1,64 @@
+# exp 2(2.1):Classification using Deep neural network (Any One from the following)
+
+# Binary classification using Deep Neural Networks Example: 
+# Classify movie reviews into positive” reviews and “negative” reviews, 
+# just based on the text content of the reviews. Use IMDB dataset
+
+
+# solution 
+
+import numpy as np
+import pandas as pd
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Input
+from tensorflow.keras.datasets import imdb
+from tensorflow.keras.preprocessing import sequence # to make all imdb review in same length
+
+# Load data
+(X_train, y_train), (X_test, y_test) = imdb.load_data(num_words=10000)
+
+# Padding
+X_train = sequence.pad_sequences(X_train, maxlen=200)
+X_test  = sequence.pad_sequences(X_test, maxlen=200)
+
+# Model
+model = Sequential()
+model.add(Input(shape=(X_train.shape[1],)))
+model.add(Dense(64, activation='relu'))
+model.add(Dense(1, activation='sigmoid'))
+
+# Compile
+model.compile(
+    optimizer='adam',
+    loss='binary_crossentropy',
+    metrics=['accuracy']   # optional but recommended
+)
+
+# Train
+model.fit(
+    X_train,
+    y_train,
+    epochs=10,
+    validation_split=0.1
+)
+
+# Test
+model.evaluate(X_test, y_test)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
