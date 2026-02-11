@@ -34,8 +34,8 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 model = Sequential()
 model.add(Input(shape=(X_train.shape[1],))) # the below comment can make this one delete
 model.add(Dense(64, activation='relu')) # or model.add(Dense(64, activation='relu', input_shape=(16,)))
-model.add(Dense(32, activation='relu'))
-model.add(Dense(26, activation='softmax'))  # 26 classes
+model.add(Dense(32, activation='relu')) # safe to remove 
+model.add(Dense(26, activation='softmax'))  # 26 classes is needed at all since 26 alphabets are total
 
 model.compile(
     optimizer='adam',
@@ -51,7 +51,7 @@ history = model.fit(
     validation_split=0.1
 )
 
-loss, accuracy = model.evaluate(X_test, y_test)
+loss, accuracy = model.evaluate(X_test, y_test) # safe to remove 
 print("Test Accuracy:", accuracy)
 
 
