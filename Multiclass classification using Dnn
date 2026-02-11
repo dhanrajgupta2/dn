@@ -40,7 +40,7 @@ model.add(Dense(26, activation='softmax'))  # 26 classes is needed at all since 
 model.compile(
     optimizer='adam',
     loss='categorical_crossentropy',
-    metrics=['accuracy']
+    metrics=['accuracy'] # if you remove this then test accuracy will not work 
 )
 
 
