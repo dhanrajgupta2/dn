@@ -51,7 +51,7 @@ history = model.fit(
     validation_split=0.1
 )
 
-loss, accuracy = model.evaluate(X_test, y_test) # safe to remove 
+loss, accuracy = model.evaluate(X_test, y_test) # can write model.evaluate however print("Test Accuracy:", accuracy) needs loss,accuracy
 print("Test Accuracy:", accuracy)
 
 
