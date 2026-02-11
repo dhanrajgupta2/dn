@@ -7,10 +7,10 @@
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.preprocessing import LabelEncoder, StandardScaler # Labelencoder converts ABC to 123
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Input
-from tensorflow.keras.utils import to_categorical
+from tensorflow.keras.utils import to_categorical # neural networks need numerical targets, not letters.
 
 file_path = 'C:\\Users\\ASUS\\Downloads\\letter-recognition.data'
 df = pd.read_csv(file_path, header=None)
