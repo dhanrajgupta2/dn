@@ -3,24 +3,71 @@
 
 # solution
 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense, Input
+
+file_path = 'C:\\Users\\ASUS\\Downloads\\GoogleStockPrices.csv' 
+df = pd.read_csv(file_path)
+df.head()
 
 
+# Assume we use the "Close" price for prediction
+
+data = df[['Close']].values # df['Close'] → Series → 1D , df[['Close']] → DataFrame → 2D
+
+# Create Time Sequences
+
+X = []
+y = []
+
+for i in range(60, len(data)):
+    X.append(data[i-60:i, 0])
+    y.append(data[i, 0])
+
+X = np.array(X)
+y = np.array(y)
+
+# Reshape for LSTM:
+
+X = X[:, :, None]
+
+# Split Train and Test
+
+X_train, X_test, y_train, y_test = train_test_split(X, y,test_size=0.2,shuffle=False)
+
+# shuffle = false because of time series else random state = 42 when shuffle is true by default
+
+# Build RNN Model
+
+model = Sequential()
+model.add(Input(shape=(X_train.shape[1], X_train.shape[2]))) # LSTM require 3D only  
+model.add(LSTM(64))  
+model.add(Dense(1))
 
 
+model.compile(
+    optimizer='adam',
+    loss='mean_squared_error'
+)
 
+model.fit(
+    X_train,
+    y_train,
+    epochs=5,
+    batch_size=32)
 
+predicted = model.predict(X_test)
 
-
-
-
-
-
-
-
-
-
-
-
+plt.figure(figsize=(10,6))
+plt.plot(y_test, label="Actual Price")
+plt.plot(predicted, label="Predicted Price")
+plt.legend()
+plt.title("Google Stock Price Prediction using RNN (No Scaling)")
+plt.show()
 
 
 
