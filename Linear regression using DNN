@@ -29,7 +29,7 @@ X_test= scaler.transform(X_test)
 
 # Build DNN-based Linear Regression model
 model = Sequential()
-model.add(Input(shape=(X_train.shape[1],)))
+model.add(Input(shape=(X_train.shape[1],)))                          # comma is there for tuple 
 model.add(Dense(64, activation='relu')) # (learns complex features)
 model.add(Dense(1))  # Linear regression neuron
 
